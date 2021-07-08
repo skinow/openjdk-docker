@@ -23,7 +23,8 @@ ENV LANG='zh_CN.UTF-8' LANGUAGE='zh_CN:zh' LC_ALL='zh_CN.UTF-8'
 
 ENV TIME_ZONE Asia/Shanghai
 
-RUN apk add --no-cache tzdata --virtual .build-deps curl binutils zstd \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
+    &&apk add --no-cache tzdata --virtual .build-deps curl binutils zstd \
     && cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     && echo ${TIME_ZONE} > /etc/timezone \
     && GLIBC_VER="2.33-r0" \
